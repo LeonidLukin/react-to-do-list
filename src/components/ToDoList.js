@@ -1,12 +1,31 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
+import { connect } from 'react-redux'
+import { addTodos, removeTodos, updateTodos, completedTodos } from './redux/reducer'
 
-const ToDoList = () => {
+const mapStateToProps = (state) => {
+    return {
+        todos: state,
+    }
+}
+const mapDispatchToProps = (dispatch) => {
+    return {
+        addTodo: (obj) => dispatch(addTodos(obj)),
+        removeTodo: (id) => dispatch(removeTodos(id)),
+        updateTodo: (obj) => dispatch(updateTodos(obj)),
+        completedTodo: (id) => dispatch(completedTodos(id))
+    }
+}
+
+const ToDoList = (props) => {
 
     const [todo, setTodo] = useState('')
+
+
+
     const handleChange = (e) => {
         setTodo(e.target.value)
     }
-    // console.log('todo text', todo);
+    // console.log('props from store', props);
 
     return (
         <div className='addTodos'>
@@ -16,12 +35,21 @@ const ToDoList = () => {
             className='todo.input'
         />
 
-        <button className='add-btn'>Add</button>
+        <button className='add-btn' onClick={() => props.addTodo({
+                id: Math.floor(Math.random()*1000), 
+                item: todo,
+                completed: false
+            })}
+        >
+            Add
+        </button>
+        <br/>
+     
         </div>
     )
 }
 
-export default ToDoList
+export default connect(mapStateToProps, mapDispatchToProps)(ToDoList);
 
 
 

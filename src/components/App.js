@@ -7,6 +7,7 @@ import Todolist from './ToDoList'
 import Login from './Login'
 import ForgotPassword from './ForgotPassword'
 import PrivateRoute from './PrivateRoute'
+import DisplayTodos from './DisplayTodos'
 
 function App() {
   return (
@@ -37,7 +38,10 @@ function App() {
               <Route path='/forgot-password' component={ForgotPassword} />
             </Switch>
           </AuthProvider>
+          <DisplayTodos />
         </Router>
+        <DisplayTodos />
+
       </div>
     </Container>
   )
