@@ -1,6 +1,6 @@
 import React, { useState  } from "react"
 import { connect } from "react-redux"
-import { addTodos, removeTodos, updateTodos, completedTodos } from './redux/reducer'
+import { addTodos, removeTodos, updateTodos, completeTodos } from './redux/reducer'
 import TodoItem from "./TodoItem"
 
 const mapStateToProps = (state) => {
@@ -13,7 +13,7 @@ const mapDispatchToProps = (dispatch) => {
         addTodo: (obj) => dispatch(addTodos(obj)),
         removeTodo: (id) => dispatch(removeTodos(id)),
         updateTodo: (obj) => dispatch(updateTodos(obj)),
-        completedTodo: (id) => dispatch(completedTodos(id))
+        completedTodo: (id) => dispatch(completeTodos(id))
     }
 }
 
@@ -28,17 +28,45 @@ const DisplayTodos = (props) => {
             </div>
             <ul>
                 {props.todos.length > 0 && sort === 'active' 
-                    ? props.todos.map((item) => {
+                    ? props.todos.map(item => {
                         return (
-                            item.completed === false && (
+                            item.completed === false && 
                             <TodoItem 
                                 key={item.id}
                                 item={item}
                                 removeTodo={props.removeTodo}
                                 updateTodo={props.updateTodo}
-                                completeTodo={props.completeTodo}
+                                completeTodo={props.completedTodo}
                             />
-                            )
+                        )
+                    }) 
+                : null}
+                {/*for completed items */}
+                {props.todos.length > 0 && sort === 'completed' 
+                    ? props.todos.map(item => {
+                        return (
+                            item.completed === true && 
+                            <TodoItem 
+                                key={item.id}
+                                item={item}
+                                removeTodo={props.removeTodo}
+                                updateTodo={props.updateTodo}
+                                completeTodo={props.completedTodo}
+                            />
+                        )
+                    }) 
+                : null}
+                {/*for all items*/}
+                {props.todos.length > 0 && sort === 'all' 
+                    ? props.todos.map(item => {
+                        return (
+                            <TodoItem 
+                                key={item.id}
+                                item={item}
+                                removeTodo={props.removeTodo}
+                                updateTodo={props.updateTodo}
+                                completeTodo={props.completedTodo}
+                            />
                         )
                     }) 
                 : null}
