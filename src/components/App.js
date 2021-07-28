@@ -10,6 +10,7 @@ import ForgotPassword from './ForgotPassword'
 import PrivateRoute from './PrivateRoute'
 import DisplayTodos from './DisplayTodos'
 import SignIn from './SignIn'
+// import { motion } from 'framer-motion'
 
 function App() {
   return (
@@ -17,19 +18,24 @@ function App() {
       style={{minHeight: '100vh' }}
     >
       <AuthProvider>
-        <div className='w-100' style={{maxWidth: '400px' }}>
+        <div className='w-100' style={{maxWidth: '1000px' }}>
         <h1>Todo App</h1>
           <Router>
             <nav>
-              <ul style={{display: 'flex', listStyle: 'none'}}>
+              <ul>
                 {/* <li style={{marginRight: '10px'}}>
                   <NavLink exact to="/" activeStyle={{fontWeight: "bold", color: "red"}}>To Do List</NavLink>
                 </li> */}
                 <li style={{marginRight: '10px'}}>
-                  <NavLink to="/signup" activeStyle={{fontWeight: "bold", color: "red"}}>Sign Up</NavLink>
+                  <NavLink to="/signup" activeStyle={{fontWeight: "bold"}}>
+                    <Button variant="primary">Sign Up</Button>
+                  </NavLink>
                 </li>
                 <li style={{marginRight: '10px'}}>
-                  <SignIn />
+                <Button variant="primary"><SignIn /></Button>
+
+                
+                  
                 </li>
                 <li>
                 </li>
