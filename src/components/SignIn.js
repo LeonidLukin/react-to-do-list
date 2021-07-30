@@ -1,32 +1,37 @@
-import React, {useState} from 'react'
+/* eslint-disable jsx-a11y/anchor-is-valid */
+import React, { useState } from 'react'
 import { useHistory, NavLink } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
-import { Button } from 'react-bootstrap'
+import '../css/main.css'
 
 const SignIn = () => {
-    const [error, setError] = useState('')
-    const { currentUser, logout } = useAuth()
-    const history = useHistory()
+  const [error, setError] = useState('')
+  const { currentUser, logout } = useAuth()
+  const history = useHistory()
 
-    async function handleLogout() {
-        setError('')
-    
-        try {
-            await logout()
-            history.push('/login')
-        } catch {
-            setError('Не удалось выйти')
-        }
+  async function handleLogout() {
+    setError('')
+
+    try {
+      await logout()
+      history.push('/login')
+    } catch (e) {
+      setError(`Не удалось выйти, ${e}`)
     }
-console.log(currentUser)
-    return (
-        <div>
-            {currentUser
-            ? <Button variant='lonk' onClick={handleLogout}>Log Out</Button> 
-            : <NavLink to="/login" activeStyle={{fontWeight: "bold", color: "red"}}>Log In</NavLink>
-            }
-        </div>
-    )
+  }
+  return (
+    <div>
+      {error && <p>{error}</p>}
+      {currentUser ? (
+        // eslint-disable-next-line jsx-a11y/click-events-have-key-events
+        <a className="link" role="button" tabIndex="0" onClick={handleLogout}>
+          Log Out
+        </a>
+      ) : (
+        <NavLink to="/login">Log In</NavLink>
+      )}
+    </div>
+  )
 }
 
 export default SignIn

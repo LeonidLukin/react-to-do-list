@@ -1,58 +1,48 @@
-import React, { useState } from 'react'
-import "./css/main.css"
-import { Alert, Button, Container } from 'react-bootstrap'
+import React from 'react'
+import '../css/main.css'
+import { Container } from 'react-bootstrap'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  NavLink,
+} from 'react-router-dom'
 import { AuthProvider } from '../contexts/AuthContext'
 import SignUp from './SignUp'
-import { BrowserRouter as Router, Switch, Route, NavLink, useHistory} from 'react-router-dom'
 import Todolist from './ToDoList'
 import Login from './Login'
 import ForgotPassword from './ForgotPassword'
 import PrivateRoute from './PrivateRoute'
-import DisplayTodos from './DisplayTodos'
 import SignIn from './SignIn'
 // import { motion } from 'framer-motion'
 
 function App() {
   return (
-    <Container className='container'
-      style={{minHeight: '100vh' }}
-    >
+    <Container className="container" style={{ minHeight: '100vh' }}>
       <AuthProvider>
-        <div className='w-100' style={{maxWidth: '1000px' }}>
-        <h1>Todo App</h1>
+        <div className="" style={{ maxWidth: '1000px' }}>
+          <h1>Todo App</h1>
           <Router>
             <nav>
               <ul>
-                {/* <li style={{marginRight: '10px'}}>
-                  <NavLink exact to="/" activeStyle={{fontWeight: "bold", color: "red"}}>To Do List</NavLink>
-                </li> */}
-                <li style={{marginRight: '10px'}}>
-                  <NavLink to="/signup" activeStyle={{fontWeight: "bold"}}>
-                    <Button variant="primary">Sign Up</Button>
-                  </NavLink>
+                <li style={{ marginRight: '10px' }}>
+                  <NavLink to="/signup">Sign Up</NavLink>
                 </li>
-                <li style={{marginRight: '10px'}}>
-                <Button variant="primary"><SignIn /></Button>
-
-                
-                  
-                </li>
-                <li>
+                <li style={{ marginRight: '10px' }}>
+                  <SignIn />
                 </li>
               </ul>
             </nav>
-              <Switch>
-                <PrivateRoute exact path='/' component={Todolist} />
-                <Route path='/signup' component={SignUp} />
-                <Route path='/login' component={Login} />
-                <Route path='/forgot-password' component={ForgotPassword} />
-              </Switch>
-            <DisplayTodos />
+            <Switch>
+              <PrivateRoute exact path="/" component={Todolist} />
+              <Route path="/signup" component={SignUp} />
+              <Route path="/login" component={Login} />
+              <Route path="/forgot-password" component={ForgotPassword} />
+            </Switch>
           </Router>
         </div>
       </AuthProvider>
     </Container>
-
   )
 }
 
